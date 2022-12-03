@@ -39,7 +39,8 @@ export default defineComponent({
     return {
       rules,
       account,
-      loginAction
+      loginAction,
+      formRef
     }
   }
 })
