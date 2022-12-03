@@ -8,7 +8,7 @@
             <span><i class="el-icon-user-solid"></i> 账号登录</span>
           </span>
         </template>
-        <login-account />
+        <login-account ref="accountRef" />
       </el-tab-pane>
       <el-tab-pane>
         <template #label>
@@ -42,10 +42,12 @@ export default defineComponent({
   components: { LoginAccount, LoginPhone },
   setup() {
     const isKeepPassword = ref(true)
+    const accountRef = ref<InstanceType<typeof LoginAccount>>() // 获取组件的类型
     const onLoginBtn = () => {
       console.log('监听登录按钮')
+      accountRef.value?.loginAction()
     }
-    return { isKeepPassword, onLoginBtn }
+    return { isKeepPassword, onLoginBtn, accountRef }
   }
 })
 </script>
