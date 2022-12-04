@@ -1,19 +1,25 @@
 import { Module } from 'vuex'
 
-import { accountLoginRequest, requestUserInfoById } from '@/service/login/login'
+import {
+  accountLoginRequest,
+  requestUserInfoById,
+  requestUserMenusByRoleId
+} from '@/service/login/login'
 
 import { ILoginState } from './types'
 import { IRootState } from '../types'
 import { IAccount } from '@/service/login/type'
 
 import localCache from '@/utils/cache'
+import router from '@/router'
 
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
   state() {
     return {
       token: '',
-      userInfo: {}
+      userInfo: {},
+      userMenus: []
     }
   },
   getters: {},
@@ -23,6 +29,9 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserInfo(state, userInfo: any) {
       state.userInfo = userInfo
+    },
+    changeUserMenus(state, userMenus: any) {
+      state.userMenus = userMenus
     }
   },
   actions: {
@@ -36,10 +45,18 @@ const loginModule: Module<ILoginState, IRootState> = {
 
       // 2.请求用户信息
       const userInfoResult = await requestUserInfoById(id)
-      console.log('userInfo', userInfoResult)
       const userInfo = userInfoResult.data
       commit('changeUserInfo', userInfo)
       localCache.setCache('userInfo', userInfo)
+
+      // 3.请求用户菜单
+      const userMenusResult = await requestUserMenusByRoleId(userInfo.role.id)
+      const userMenus = userMenusResult.data
+      commit('changeUserMenus', userMenus)
+      localCache.setCache('userMenus', userMenus)
+
+      // 4.跳转到首页
+      router.push('/main')
     }
   }
 }

@@ -4,7 +4,8 @@ import { IAccount, IDataType, ILoginResult } from './type'
 
 enum LoginAPI {
   AccountLogin = '/login',
-  LoginUserInfo = '/users/'
+  LoginUserInfo = '/users/', // 使用: /users/1
+  UserMenus = '/role/' // 使用: role/1/menu
 }
 
 export function accountLoginRequest(account: IAccount) {
@@ -17,5 +18,11 @@ export function accountLoginRequest(account: IAccount) {
 export function requestUserInfoById(id: number) {
   return jnRequest.get<IDataType>({
     url: LoginAPI.LoginUserInfo + id
+  })
+}
+
+export function requestUserMenusByRoleId(id: number) {
+  return jnRequest.get<IDataType>({
+    url: LoginAPI.UserMenus + id + '/menu'
   })
 }
