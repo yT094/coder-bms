@@ -4,6 +4,7 @@ module.exports = {
   // 1.配置方式一: CLI提供的属性
   outputDir: './build',
   // publicPath: './',
+  // webPack 中的知识, 开发环境中解决跨域问题
   devServer: {
     proxy: {
       '^/api': {

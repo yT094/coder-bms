@@ -28,7 +28,6 @@ class JNRequest {
     // 2.添加所有的实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('all request: ', config)
         return config
       },
       (err) => {
@@ -38,7 +37,6 @@ class JNRequest {
 
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('all response: ', res)
         const data = res.data
         return data
       },

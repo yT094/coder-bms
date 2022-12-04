@@ -50,7 +50,6 @@ export default defineComponent({
 
     // 2.定义方法
     const onLoginBtn = () => {
-      console.log('监听登录按钮')
       if (currentTab.value === 'account') {
         accountRef.value?.loginAction(isKeepPassword.value)
       } else {

@@ -33,7 +33,6 @@ export default defineComponent({
     const loginAction = (isKeepPassword: boolean) => {
       formRef.value?.validate((valid) => {
         if (valid) {
-          console.log('account正在开始登录~')
           // 1.判断是否需要记住密码
           if (isKeepPassword) {
             localStorage.setCache('name', account.name)
