@@ -13,3 +13,9 @@ export function accountLoginRequest(account: IAccount) {
     data: account
   })
 }
+
+export function requestUserInfoById(id: number) {
+  return jnRequest.get<IDataType>({
+    url: LoginAPI.LoginUserInfo + id
+  })
+}

@@ -1,6 +1,6 @@
 import { Module } from 'vuex'
 
-import { accountLoginRequest } from '@/service/login/login'
+import { accountLoginRequest, requestUserInfoById } from '@/service/login/login'
 
 import { ILoginState } from './types'
 import { IRootState } from '../types'
@@ -20,6 +20,9 @@ const loginModule: Module<ILoginState, IRootState> = {
   mutations: {
     changeToken(state, token: string) {
       state.token = token
+    },
+    changeUserInfo(state, userInfo: any) {
+      state.userInfo = userInfo
     }
   },
   actions: {
@@ -30,6 +33,13 @@ const loginModule: Module<ILoginState, IRootState> = {
       // 保存token值到vuex和localStorage中
       commit('changeToken', token)
       localCache.setCache('token', token)
+
+      // 2.请求用户信息
+      const userInfoResult = await requestUserInfoById(id)
+      console.log('userInfo', userInfoResult)
+      const userInfo = userInfoResult.data
+      commit('changeUserInfo', userInfo)
+      localCache.setCache('userInfo', userInfo)
     }
   }
 }
