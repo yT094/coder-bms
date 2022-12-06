@@ -12,11 +12,14 @@
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  setup() {
+  emits: ['foldChange'],
+  setup(props, { emit }) {
     // 默认不折叠
     const isFold = ref(false)
     const onFolderIconClick = () => {
       isFold.value = !isFold.value
+      //子组件向父组件传递值
+      emit('foldChange', isFold.value)
     }
 
     return {

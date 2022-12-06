@@ -49,6 +49,7 @@ import { useStore } from '@/store'
 // vuex - typescript  => pinia
 
 export default defineComponent({
+  // 接收父组件传递的值
   props: {
     collapse: {
       type: Boolean,
@@ -91,9 +92,9 @@ export default defineComponent({
     }
   }
 
-  .el-menu {
-    border-right: none;
-  }
+  // .el-menu {
+  //   border-right: none;
+  // }
 
   // 目录
   .el-submenu {
