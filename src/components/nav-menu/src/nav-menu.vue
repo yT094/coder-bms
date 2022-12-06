@@ -92,9 +92,9 @@ export default defineComponent({
     }
   }
 
-  // .el-menu {
-  //   border-right: none;
-  // }
+  .el-menu {
+    border-right: none;
+  }
 
   // 目录
   .el-submenu {
