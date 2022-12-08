@@ -7,15 +7,15 @@ export const userFormConfig: IForm = {
       type: 'input',
       label: 'id',
       placeholder: '请输入id'
+    },
+    {
+      type: 'select',
+      label: '喜欢的运动',
+      placeholder: '请选择喜欢的运动',
+      options: [
+        { title: '篮球', value: 'basketball' },
+        { title: '足球', value: 'football' }
+      ]
     }
-    // {
-    //   type: 'select',
-    //   label: '喜欢的运动',
-    //   placeholder: '请选择喜欢的运动',
-    //   options: [
-    //     { title: '篮球', value: 'basketball' },
-    //     { title: '足球', value: 'football' }
-    //   ]
-    // }
   ]
 }
