@@ -6,6 +6,7 @@ export interface IFormItem {
   placeholder?: any
   // select options
   options?: any[]
+  timeOptions?: any
 }
 
 export interface IForm {

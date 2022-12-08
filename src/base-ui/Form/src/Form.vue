@@ -16,6 +16,12 @@
               >
             </el-select>
           </div>
+          <div v-else-if="item.type === 'datepicker'">
+            <el-date-picker
+              style="width: 100%"
+              v-bind="item.timeOptions"
+            ></el-date-picker>
+          </div>
         </el-form-item>
       </template>
     </el-form>

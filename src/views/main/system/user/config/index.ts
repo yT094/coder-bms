@@ -16,6 +16,15 @@ export const userFormConfig: IForm = {
         { title: '篮球', value: 'basketball' },
         { title: '足球', value: 'football' }
       ]
+    },
+    {
+      type: 'datepicker',
+      label: '选择时间',
+      timeOptions: {
+        type: 'daterange',
+        startPlaceholder: '开始时间',
+        endPlaceholder: '结束时间'
+      }
     }
   ]
 }
