@@ -1,18 +1,25 @@
 <template>
   <div class="user">
-    <h2>user</h2>
+    <jn-form v-bind="userFormConfig" />
   </div>
 </template>
 
 <script lang="ts">
+import JnForm from '@/base-ui/Form'
 import { defineComponent } from 'vue'
+import { userFormConfig } from './config'
 
 export default defineComponent({
+  components: {
+    JnForm
+  },
   name: 'user',
   setup() {
-    return {}
+    return {
+      userFormConfig
+    }
   }
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less"></style>
