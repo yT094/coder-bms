@@ -6,7 +6,7 @@
       @click="onFolderIconClick"
     ></i>
     <div class="r-content">
-      <div>面包屑</div>
+      <jn-breadcrumb :breadcrumbs="breadcrumbs" />
       <user-info></user-info>
     </div>
   </div>
@@ -14,10 +14,14 @@
 
 <script lang="ts">
 import userInfo from '@/components/nav-header/src/user-info.vue'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
+import JnBreadcrumb from '@/base-ui/breadcrumb'
+import { useStore } from '@/store'
+import { useRoute } from 'vue-router'
+import { pathMapBreadcrumbs } from '@/utils/map-menus'
 
 export default defineComponent({
-  components: { userInfo },
+  components: { userInfo, JnBreadcrumb },
   emits: ['foldChange'],
   setup(props, { emit }) {
     // 默认不折叠
@@ -28,9 +32,18 @@ export default defineComponent({
       emit('foldChange', isFold.value)
     }
 
+    const store = useStore()
+    const breadcrumbs = computed(() => {
+      const userMenus = store.state.login.userMenus
+      const route = useRoute()
+      const currentPath = route.path
+      return pathMapBreadcrumbs(userMenus, currentPath)
+    })
+
     return {
       isFold,
-      onFolderIconClick
+      onFolderIconClick,
+      breadcrumbs
     }
   }
 })
