@@ -4,11 +4,13 @@ export const userFormConfig: IForm = {
   labelWidth: '120px',
   formItems: [
     {
+      field: 'id',
       type: 'input',
       label: 'id',
       placeholder: '请输入id'
     },
     {
+      field: 'sport',
       type: 'select',
       label: '喜欢的运动',
       placeholder: '请选择喜欢的运动',
@@ -18,6 +20,7 @@ export const userFormConfig: IForm = {
       ]
     },
     {
+      field: 'createTime',
       type: 'datepicker',
       label: '选择时间',
       timeOptions: {

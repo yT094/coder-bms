@@ -6,10 +6,18 @@
           <el-col v-bind="colLayout">
             <el-form-item :label="item.label">
               <div v-if="item.type === 'input'">
-                <el-input :placeholder="item.placeholder"></el-input>
+                <el-input
+                  :placeholder="item.placeholder"
+                  v-model="formData[`${item.field}`]"
+                ></el-input>
               </div>
               <div v-else-if="item.type === 'select'">
-                <el-select :placeholder="item.placeholder" style="width: 100%">
+                <el-select
+                  :placeholder="item.placeholder"
+                  v-bind="item.otherOptions"
+                  style="width: 100%"
+                  v-model="formData[`${item.field}`]"
+                >
                   <el-option
                     v-for="option in item.options"
                     :key="option.value"
@@ -22,6 +30,7 @@
                 <el-date-picker
                   style="width: 100%"
                   v-bind="item.timeOptions"
+                  v-model="formData[`${item.field}`]"
                 ></el-date-picker>
               </div>
             </el-form-item>
@@ -38,6 +47,10 @@ import { IFormItem } from '../types'
 
 export default defineComponent({
   props: {
+    formData: {
+      type: Object,
+      required: true
+    },
     formItems: {
       type: Array as PropType<IFormItem[]>,
       default: () => []
