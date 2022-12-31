@@ -1,7 +1,10 @@
 <template>
   <div class="jn-form">
-    <el-row>
-      <el-form :label-width="labelWidth">
+    <div class="m-header">
+      <slot name="header"></slot>
+    </div>
+    <el-form :label-width="labelWidth">
+      <el-row>
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
             <el-form-item :label="item.label">
@@ -36,8 +39,11 @@
             </el-form-item>
           </el-col>
         </template>
-      </el-form>
-    </el-row>
+      </el-row>
+    </el-form>
+    <div class="m-footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
