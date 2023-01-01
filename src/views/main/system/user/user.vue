@@ -16,7 +16,8 @@
 
 <script lang="ts">
 import JnForm from '@/base-ui/Form'
-import { defineComponent, ref } from 'vue'
+import { useStore } from '@/store'
+import { defineComponent, ref, computed } from 'vue'
 import { userFormConfig } from './config'
 
 export default defineComponent({
@@ -30,6 +31,19 @@ export default defineComponent({
       sport: '',
       createTime: ''
     })
+
+    const store = useStore()
+    store.dispatch('system/getPageListAction', {
+      pageUrl: '/users/list',
+      queryInfo: {
+        offset: 0,
+        size: 10
+      }
+    })
+
+    const userList = computed(() => store.state.system.userList)
+    console.log('qqqqqqqqqqqqqqqqq', userList)
+
     return {
       userFormConfig,
       formData
