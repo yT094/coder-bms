@@ -48,4 +48,8 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.page-search {
+  padding: 20px 0;
+}
+</style>
