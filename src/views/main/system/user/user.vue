@@ -1,18 +1,6 @@
 <template>
   <div class="user">
-    <div class="r-form">
-      <jn-form v-bind="userFormConfig" v-model="formData">
-        <template #header>
-          <h1>高级检索</h1>
-        </template>
-        <template #footer>
-          <div class="r-btn">
-            <el-button icon="el-icon-refresh">重置</el-button>
-            <el-button type="primary" icon="el-icon-search">搜索</el-button>
-          </div>
-        </template>
-      </jn-form>
-    </div>
+    <page-search :searchFormConfig="searchFormConfig" />
 
     <div class="r-content">
       <jn-table :listData="userList" :propList="propList">
@@ -28,15 +16,15 @@
 </template>
 
 <script lang="ts">
-import JnForm from '@/base-ui/Form'
+import PageSearch from '@/components/page-search'
+import { searchFormConfig } from './config/page-search'
 import JnTable from '@/base-ui/table'
 import { useStore } from '@/store'
 import { defineComponent, ref, computed } from 'vue'
-import { userFormConfig } from './config'
 
 export default defineComponent({
   components: {
-    JnForm,
+    PageSearch,
     JnTable
   },
   name: 'user',
@@ -79,7 +67,7 @@ export default defineComponent({
     ]
 
     return {
-      userFormConfig,
+      searchFormConfig,
       formData,
       propList,
       userList
