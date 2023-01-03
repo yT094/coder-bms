@@ -5,7 +5,11 @@
         <el-button> {{ scope.row.enable ? '启用' : '禁用' }} </el-button>
       </template>
       <template #createAt="scope">
-        <strong>{{ scope.row.createAt }}</strong>
+        <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
+      </template>
+
+      <template #updateAt="scope">
+        <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
     </jn-table>
   </div>
