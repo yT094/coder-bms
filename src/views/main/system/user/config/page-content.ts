@@ -16,5 +16,7 @@ export const contentTableConfig = {
       minWidth: '250',
       slotName: 'updateAt'
     }
-  ]
+  ],
+  showSelectColumn: true,
+  showIndexColumn: true
 }
