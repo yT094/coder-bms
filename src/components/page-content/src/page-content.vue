@@ -11,6 +11,17 @@
       <template #updateAt="scope">
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
+
+      <template #handler>
+        <div class="t-btn">
+          <el-button icon="el-icon-edit" size="mini" type="text"
+            >编辑</el-button
+          >
+          <el-button icon="el-icon-delete" size="mini" type="text"
+            >删除</el-button
+          >
+        </div>
+      </template>
     </jn-table>
   </div>
 </template>
@@ -55,6 +66,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .page-content {
+  padding: 20px;
   border-top: 20px solid #f5f5f5;
 }
 </style>
