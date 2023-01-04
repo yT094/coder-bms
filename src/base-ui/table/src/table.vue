@@ -1,5 +1,13 @@
 <template>
   <div class="jn-table">
+    <div class="e-header">
+      <slot name="header">
+        <div class="title">{{ title }}</div>
+        <div class="handler">
+          <slot name="headerHandler"></slot>
+        </div>
+      </slot>
+    </div>
     <el-table
       :data="listData"
       border
@@ -51,6 +59,10 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
+    title: {
+      type: String,
+      default: ''
+    },
     listData: {
       type: Array,
       required: true
@@ -82,6 +94,11 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .jn-table {
+  .e-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
   .e-footer {
     padding: 15px 0;
     .el-pagination {

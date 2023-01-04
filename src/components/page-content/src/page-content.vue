@@ -1,6 +1,10 @@
 <template>
   <div class="page-content">
     <jn-table :listData="dataList" v-bind="contentTableConfig">
+      <template #headerHandler>
+        <el-button type="primary" size="medium">新建用户</el-button>
+      </template>
+
       <template #status="scope">
         <el-button
           plain
@@ -10,6 +14,7 @@
           {{ scope.row.enable ? '启用' : '禁用' }}
         </el-button>
       </template>
+
       <template #createAt="scope">
         <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
       </template>
