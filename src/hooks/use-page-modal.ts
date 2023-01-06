@@ -8,5 +8,11 @@ export function usePageModal() {
       pageModalRef.value.dialogVisible = true
     }
   }
-  return [pageModalRef, onAddBtnClick]
+
+  const onEditBtnClick = () => {
+    if (pageModalRef.value) {
+      pageModalRef.value.dialogVisible = true
+    }
+  }
+  return [pageModalRef, onAddBtnClick, onEditBtnClick]
 }

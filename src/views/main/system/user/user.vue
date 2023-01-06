@@ -5,6 +5,7 @@
       :contentTableConfig="contentTableConfig"
       pageName="users"
       @addBtnClick="onAddBtnClick"
+      @editBtnClick="onEditBtnClick"
     />
     <page-modal :dialogFormConfig="dialogFormConfig" ref="pageModalRef" />
   </div>
@@ -32,14 +33,15 @@ export default defineComponent({
   name: 'user',
   setup() {
     // 调用hook获取公共变量和函数
-    const [pageModalRef, onAddBtnClick] = usePageModal()
+    const [pageModalRef, onAddBtnClick, onEditBtnClick] = usePageModal()
 
     return {
       searchFormConfig,
       contentTableConfig,
       dialogFormConfig,
       pageModalRef,
-      onAddBtnClick
+      onAddBtnClick,
+      onEditBtnClick
     }
   }
 })

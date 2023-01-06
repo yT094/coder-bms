@@ -86,7 +86,11 @@ export default defineComponent({
       emit('addBtnClick')
     }
 
-    return { dataList, handleAddBtnClick }
+    const handleEditBtnClick = () => {
+      emit('editBtnClick')
+    }
+
+    return { dataList, handleAddBtnClick, handleEditBtnClick }
   }
 })
 </script>
