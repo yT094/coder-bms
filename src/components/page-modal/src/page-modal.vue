@@ -28,7 +28,8 @@ export default defineComponent({
   },
   setup() {
     const dialogVisible = ref(false)
-    return { dialogVisible }
+    const formData = ref({})
+    return { dialogVisible, formData }
   }
 })
 </script>

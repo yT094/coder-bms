@@ -32,8 +32,28 @@ export default defineComponent({
   },
   name: 'user',
   setup() {
+    // pageModal相关的hook逻辑
+    // 1.处理密码的逻辑，不宜写在公共usePageModal，这属于user.vue特有的
+    const addCallBack = () => {
+      const passwordItem = dialogFormConfig.formItems.find(
+        (item) => item.field === 'password'
+      )
+      // 这里肯定有值，使用类型断言
+      passwordItem!.isHidden = false
+    }
+    const editCallBack = () => {
+      const passwordItem = dialogFormConfig.formItems.find(
+        (item) => item.field === 'password'
+      )
+      // 这里肯定有值，使用类型断言
+      passwordItem!.isHidden = true
+    }
+
     // 调用hook获取公共变量和函数
-    const [pageModalRef, onAddBtnClick, onEditBtnClick] = usePageModal()
+    const [pageModalRef, onAddBtnClick, onEditBtnClick] = usePageModal(
+      addCallBack,
+      editCallBack
+    )
 
     return {
       searchFormConfig,

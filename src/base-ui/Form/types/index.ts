@@ -8,6 +8,7 @@ export interface IFormItem {
   // select options
   options?: any[]
   timeOptions?: any
+  isHidden?: boolean
 }
 
 export interface IForm {
