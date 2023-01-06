@@ -1,7 +1,7 @@
 <template>
   <el-dialog v-model="dialogVisible" title="新建用户" width="30%" center>
     <span>
-      <jn-form v-bind="searchFormConfig" v-model="formData"></jn-form>
+      <jn-form v-bind="dialogFormConfig" v-model="formData"></jn-form>
     </span>
     <template #footer>
       <span class="dialog-footer">
@@ -22,6 +22,9 @@ export default defineComponent({
   name: 'PageModal',
   components: {
     JnForm
+  },
+  props: {
+    dialogFormConfig: {}
   },
   setup() {
     const dialogVisible = ref(true)

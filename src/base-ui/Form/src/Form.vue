@@ -14,6 +14,13 @@
                   v-model="formData[`${item.field}`]"
                 ></el-input>
               </div>
+              <div v-else-if="item.type === 'password'">
+                <el-input
+                  :placeholder="item.placeholder"
+                  :show-password="true"
+                  v-model="formData[`${item.field}`]"
+                />
+              </div>
               <div v-else-if="item.type === 'select'">
                 <el-select
                   :placeholder="item.placeholder"
