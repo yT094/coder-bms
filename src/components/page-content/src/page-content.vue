@@ -2,7 +2,9 @@
   <div class="page-content">
     <jn-table :listData="dataList" v-bind="contentTableConfig">
       <template #headerHandler>
-        <el-button type="primary" size="medium">新建用户</el-button>
+        <el-button type="primary" size="medium" @click="handleAddBtnClick"
+          >新建用户</el-button
+        >
       </template>
 
       <template #status="scope">
@@ -25,10 +27,18 @@
 
       <template #handler>
         <div class="t-btn">
-          <el-button icon="el-icon-edit" size="mini" type="text"
+          <el-button
+            icon="el-icon-edit"
+            size="mini"
+            type="text"
+            @click="handleEditBtnClick"
             >编辑</el-button
           >
-          <el-button icon="el-icon-delete" size="mini" type="text"
+          <el-button
+            icon="el-icon-delete"
+            size="mini"
+            type="text"
+            @click="handleDeleteBtnClick"
             >删除</el-button
           >
         </div>
@@ -56,7 +66,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  emits: ['editBtnClick', 'deleteBtnClick', 'addBtnClick'],
+  setup(props, { emit }) {
     const store = useStore()
     store.dispatch('system/getPageListAction', {
       pageName: props.pageName,
@@ -70,7 +81,12 @@ export default defineComponent({
       store.getters[`system/pageListData`](props.pageName)
     )
 
-    return { dataList }
+    // 处理新建和编辑按钮
+    const handleAddBtnClick = () => {
+      emit('addBtnClick')
+    }
+
+    return { dataList, handleAddBtnClick }
   }
 })
 </script>

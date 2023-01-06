@@ -1,20 +1,27 @@
 <template>
   <div class="user">
     <page-search :searchFormConfig="searchFormConfig" />
-    <page-content :contentTableConfig="contentTableConfig" pageName="users" />
+    <page-content
+      :contentTableConfig="contentTableConfig"
+      pageName="users"
+      @addBtnClick="onAddBtnClick"
+    />
     <page-modal :dialogFormConfig="dialogFormConfig" />
   </div>
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
+
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
 import PageModal from '@/components/page-modal'
+
 import { searchFormConfig } from './config/page-search'
 import { contentTableConfig } from './config/page-content'
 import { dialogFormConfig } from './config/page-modal'
 
-import { defineComponent } from 'vue'
+import { usePageModal } from '@/hooks/use-page-modal'
 
 export default defineComponent({
   components: {
@@ -24,10 +31,14 @@ export default defineComponent({
   },
   name: 'user',
   setup() {
+    // 调用hook获取公共变量和函数
+    const [onAddBtnClick] = usePageModal()
+
     return {
       searchFormConfig,
       contentTableConfig,
-      dialogFormConfig
+      dialogFormConfig,
+      onAddBtnClick
     }
   }
 })
