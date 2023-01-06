@@ -27,7 +27,7 @@ export default defineComponent({
     dialogFormConfig: {}
   },
   setup() {
-    const dialogVisible = ref(true)
+    const dialogVisible = ref(false)
     return { dialogVisible }
   }
 })

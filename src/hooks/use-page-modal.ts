@@ -1,7 +1,12 @@
-export function usePageModal() {
-  const onAddBtnClick = () => {
-    console.log('onAddBtnClick')
-  }
+import { ref } from 'vue'
+import PageModal from '@/components/page-modal'
 
-  return [onAddBtnClick]
+export function usePageModal() {
+  const pageModalRef = ref<InstanceType<typeof PageModal>>()
+  const onAddBtnClick = () => {
+    if (pageModalRef.value) {
+      pageModalRef.value.dialogVisible = true
+    }
+  }
+  return [pageModalRef, onAddBtnClick]
 }
