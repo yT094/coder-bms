@@ -12,9 +12,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">
-          确认
-        </el-button>
+        <el-button type="primary" @click="onConfirmClick"> 确认 </el-button>
       </span>
     </template>
   </el-dialog>
@@ -22,6 +20,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
+import { useStore } from 'vuex'
 import JnForm from '@/base-ui/Form'
 
 export default defineComponent({
@@ -37,6 +36,10 @@ export default defineComponent({
     defaultInfo: {
       type: Object,
       default: () => ({})
+    },
+    pageName: {
+      type: String,
+      required: true
     }
   },
   setup(props) {
@@ -51,7 +54,22 @@ export default defineComponent({
         }
       }
     )
-    return { dialogVisible, formData }
+    // 处理 确认 按钮的点击
+    const store = useStore()
+    const onConfirmClick = () => {
+      // 关闭弹框
+      dialogVisible.value = false
+      // 区分 编辑确认 还是 新建确认
+      if (Object.keys(props.defaultInfo).length) {
+        console.log('编辑按钮')
+      } else {
+        store.dispatch('system/createPageDataAction', {
+          pageName: props.pageName,
+          newData: { ...formData.value }
+        })
+      }
+    }
+    return { dialogVisible, formData, onConfirmClick }
   }
 })
 </script>

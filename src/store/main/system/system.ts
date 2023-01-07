@@ -1,8 +1,9 @@
 import { IRootState } from '@/store/types'
 import { Module } from 'vuex'
+import { ElMessage } from 'element-plus'
 import { ISystemState } from './types'
 
-import { getPageListData } from '../../../service/main/system/system'
+import { getPageListData, createPageData } from '@/service/main/system/system'
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
@@ -58,6 +59,34 @@ const systemModule: Module<ISystemState, IRootState> = {
           break
         default:
           break
+      }
+    },
+
+    async createPageDataAction({ dispatch }, payload: any) {
+      // 1.创建数据的请求
+      const { pageName, newData } = payload
+      const pageUrl = `/${pageName}`
+      const pageResult = await createPageData(pageUrl, newData)
+      if (pageResult.code !== 0) {
+        ElMessage({
+          showClose: true,
+          message: '新建用户失败！',
+          type: 'error'
+        })
+      } else {
+        ElMessage({
+          showClose: true,
+          message: '新建用户成功！',
+          type: 'success'
+        })
+        // 2.请求最新的数据
+        dispatch('getPageListAction', {
+          pageName,
+          queryInfo: {
+            offset: 0,
+            size: 10
+          }
+        })
       }
     }
   }

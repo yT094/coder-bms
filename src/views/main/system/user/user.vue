@@ -10,6 +10,7 @@
     <page-modal
       :defaultInfo="defaultInfo"
       :dialogFormConfig="dialogFormConfig"
+      pageName="users"
       ref="pageModalRef"
     />
   </div>
