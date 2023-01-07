@@ -10,9 +10,15 @@ export function getPageListData(url: string, queryInfo: any) {
 }
 
 export function createPageData(url: string, newData: any) {
-  console.log('33333333333', url, newData)
   return jnRequest.post<IDataType>({
     url: url,
     data: newData
+  })
+}
+
+export function editPageData(url: string, editData: any) {
+  return jnRequest.patch<IDataType>({
+    url: url,
+    data: editData
   })
 }

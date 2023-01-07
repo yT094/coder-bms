@@ -3,7 +3,11 @@ import { Module } from 'vuex'
 import { ElMessage } from 'element-plus'
 import { ISystemState } from './types'
 
-import { getPageListData, createPageData } from '@/service/main/system/system'
+import {
+  getPageListData,
+  createPageData,
+  editPageData
+} from '@/service/main/system/system'
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
@@ -77,6 +81,34 @@ const systemModule: Module<ISystemState, IRootState> = {
         ElMessage({
           showClose: true,
           message: '新建用户成功！',
+          type: 'success'
+        })
+        // 2.请求最新的数据
+        dispatch('getPageListAction', {
+          pageName,
+          queryInfo: {
+            offset: 0,
+            size: 10
+          }
+        })
+      }
+    },
+
+    async editPageDataAction({ dispatch }, payload: any) {
+      // 1.创建数据的请求
+      const { pageName, editData, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+      const pageResult = await editPageData(pageUrl, editData)
+      if (pageResult.code !== 0) {
+        ElMessage({
+          showClose: true,
+          message: '编辑失败！',
+          type: 'error'
+        })
+      } else {
+        ElMessage({
+          showClose: true,
+          message: '编辑成功！',
           type: 'success'
         })
         // 2.请求最新的数据

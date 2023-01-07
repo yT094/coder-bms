@@ -61,7 +61,11 @@ export default defineComponent({
       dialogVisible.value = false
       // 区分 编辑确认 还是 新建确认
       if (Object.keys(props.defaultInfo).length) {
-        console.log('编辑按钮')
+        store.dispatch('system/editPageDataAction', {
+          pageName: props.pageName,
+          editData: { ...formData.value },
+          id: props.defaultInfo.id
+        })
       } else {
         store.dispatch('system/createPageDataAction', {
           pageName: props.pageName,
