@@ -33,6 +33,13 @@ export const dialogFormConfig: IForm = {
       label: '选择部门',
       placeholder: '请选择部门',
       options: []
+    },
+    {
+      field: 'roleId',
+      type: 'select',
+      label: '选择角色',
+      placeholder: '请选择角色',
+      options: []
     }
   ],
   colLayout: { span: 24 }

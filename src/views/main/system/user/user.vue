@@ -64,6 +64,13 @@ export default defineComponent({
       departmentItem!.options = store.state.entireDepartment.map((item) => {
         return { label: item.name, value: item.id }
       })
+
+      const roleItem = dialogFormConfig.formItems.find(
+        (item) => item.field === 'roleId'
+      )
+      roleItem!.options = store.state.entireRole.map((item) => {
+        return { label: item.name, value: item.id }
+      })
       return dialogFormConfig
     })
 
