@@ -44,6 +44,7 @@ export default defineComponent({
     const formData = ref<any>({})
     watch(
       () => props.defaultInfo,
+      // newValue 也可以换成 defaultInfo
       (newValue) => {
         for (const item of props.dialogFormConfig.formItems) {
           formData.value[`${item.field}`] = newValue[`${item.field}`]
