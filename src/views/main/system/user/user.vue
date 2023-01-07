@@ -9,7 +9,7 @@
     />
     <page-modal
       :defaultInfo="defaultInfo"
-      :dialogFormConfig="dialogFormConfig"
+      :dialogFormConfig="dialogFormConfigRef"
       pageName="users"
       ref="pageModalRef"
     />
@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
@@ -28,6 +28,7 @@ import { contentTableConfig } from './config/page-content'
 import { dialogFormConfig } from './config/page-modal'
 
 import { usePageModal } from '@/hooks/use-page-modal'
+import { useStore } from '@/store'
 
 export default defineComponent({
   components: {
@@ -54,6 +55,18 @@ export default defineComponent({
       passwordItem!.isHidden = true
     }
 
+    // 2.动态加载部门和角色列表
+    const store = useStore()
+    const dialogFormConfigRef = computed(() => {
+      const departmentItem = dialogFormConfig.formItems.find(
+        (item) => item.field === 'departmentId'
+      )
+      departmentItem!.options = store.state.entireDepartment.map((item) => {
+        return { label: item.name, value: item.id }
+      })
+      return dialogFormConfig
+    })
+
     // 调用hook获取公共变量和函数
     const [defaultInfo, pageModalRef, onAddBtnClick, onEditBtnClick] =
       usePageModal(addCallBack, editCallBack)
@@ -65,7 +78,8 @@ export default defineComponent({
       defaultInfo,
       pageModalRef,
       onAddBtnClick,
-      onEditBtnClick
+      onEditBtnClick,
+      dialogFormConfigRef
     }
   }
 })

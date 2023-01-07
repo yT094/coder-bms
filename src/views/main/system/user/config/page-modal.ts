@@ -26,6 +26,13 @@ export const dialogFormConfig: IForm = {
       type: 'input',
       label: '电话号码',
       placeholder: '请输入电话号码'
+    },
+    {
+      field: 'departmentId',
+      type: 'select',
+      label: '选择部门',
+      placeholder: '请选择部门',
+      options: []
     }
   ],
   colLayout: { span: 24 }
