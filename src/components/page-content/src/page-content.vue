@@ -25,13 +25,13 @@
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
 
-      <template #handler>
+      <template #handler="scope">
         <div class="t-btn">
           <el-button
             icon="el-icon-edit"
             size="mini"
             type="text"
-            @click="handleEditBtnClick"
+            @click="handleEditBtnClick(scope.row)"
             >编辑</el-button
           >
           <el-button
@@ -86,8 +86,8 @@ export default defineComponent({
       emit('addBtnClick')
     }
 
-    const handleEditBtnClick = () => {
-      emit('editBtnClick')
+    const handleEditBtnClick = (item: any) => {
+      emit('editBtnClick', item)
     }
 
     return { dataList, handleAddBtnClick, handleEditBtnClick }

@@ -1,5 +1,11 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="新建用户" width="30%" center>
+  <el-dialog
+    v-model="dialogVisible"
+    title="新建用户"
+    width="30%"
+    center
+    destroy-on-close
+  >
     <span>
       <jn-form v-bind="dialogFormConfig" v-model="formData"></jn-form>
     </span>
@@ -15,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import JnForm from '@/base-ui/Form'
 
 export default defineComponent({
@@ -24,11 +30,26 @@ export default defineComponent({
     JnForm
   },
   props: {
-    dialogFormConfig: {}
+    dialogFormConfig: {
+      type: Object,
+      required: true
+    },
+    defaultInfo: {
+      type: Object,
+      default: () => ({})
+    }
   },
-  setup() {
+  setup(props) {
     const dialogVisible = ref(false)
-    const formData = ref({})
+    const formData = ref<any>({})
+    watch(
+      () => props.defaultInfo,
+      (newValue) => {
+        for (const item of props.dialogFormConfig.formItems) {
+          formData.value[`${item.field}`] = newValue[`${item.field}`]
+        }
+      }
+    )
     return { dialogVisible, formData }
   }
 })

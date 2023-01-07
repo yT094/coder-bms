@@ -7,7 +7,11 @@
       @addBtnClick="onAddBtnClick"
       @editBtnClick="onEditBtnClick"
     />
-    <page-modal :dialogFormConfig="dialogFormConfig" ref="pageModalRef" />
+    <page-modal
+      :defaultInfo="defaultInfo"
+      :dialogFormConfig="dialogFormConfig"
+      ref="pageModalRef"
+    />
   </div>
 </template>
 
@@ -50,15 +54,14 @@ export default defineComponent({
     }
 
     // 调用hook获取公共变量和函数
-    const [pageModalRef, onAddBtnClick, onEditBtnClick] = usePageModal(
-      addCallBack,
-      editCallBack
-    )
+    const [defaultInfo, pageModalRef, onAddBtnClick, onEditBtnClick] =
+      usePageModal(addCallBack, editCallBack)
 
     return {
       searchFormConfig,
       contentTableConfig,
       dialogFormConfig,
+      defaultInfo,
       pageModalRef,
       onAddBtnClick,
       onEditBtnClick
