@@ -7,7 +7,11 @@
       <el-row>
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
-            <el-form-item v-if="!item.isHidden" :label="item.label">
+            <el-form-item
+              v-if="!item.isHidden"
+              :label="item.label"
+              :style="itemStyle"
+            >
               <div v-if="item.type === 'input'">
                 <el-input
                   :placeholder="item.placeholder"
@@ -82,6 +86,10 @@ export default defineComponent({
         sm: 24,
         xs: 24
       })
+    },
+    itemStyle: {
+      type: Object,
+      default: () => ({ padding: '10px 40px' })
     }
   },
   emits: ['update:modelValue'],
