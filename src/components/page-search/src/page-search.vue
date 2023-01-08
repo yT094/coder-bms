@@ -12,7 +12,7 @@
           <el-button
             type="primary"
             icon="el-icon-search"
-            @click="handleQueryClick"
+            @click="onQueryBtnClick"
             >查询</el-button
           >
         </div>
@@ -54,10 +54,10 @@ export default defineComponent({
     }
 
     // 用户点击查询
-    const handleQueryClick = () => {
+    const onQueryBtnClick = () => {
       emit('queryBtnClick', formData.value)
     }
-    return { formData, onResetBtnClick, handleQueryClick }
+    return { formData, onResetBtnClick, onQueryBtnClick }
   }
 })
 </script>
