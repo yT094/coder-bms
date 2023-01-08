@@ -2,6 +2,7 @@
   <div class="user">
     <page-search
       :searchFormConfig="searchFormConfig"
+      @resetBtnClick="handleResetBtnClick"
       @queryBtnClick="handleQueryBtnClick"
     />
     <page-content
@@ -83,7 +84,8 @@ export default defineComponent({
     const [defaultInfo, pageModalRef, onAddBtnClick, onEditBtnClick] =
       usePageModal(addCallBack, editCallBack)
 
-    const [pageContentRef, handleQueryBtnClick] = usePageSearch()
+    const [pageContentRef, handleQueryBtnClick, handleResetBtnClick] =
+      usePageSearch()
 
     return {
       searchFormConfig,
@@ -95,6 +97,7 @@ export default defineComponent({
       onEditBtnClick,
       pageContentRef,
       handleQueryBtnClick,
+      handleResetBtnClick,
       dialogFormConfigRef
     }
   }

@@ -6,7 +6,9 @@
       </template>
       <template #footer>
         <div class="r-btn">
-          <el-button icon="el-icon-refresh" @click="onResetBtn">重置</el-button>
+          <el-button icon="el-icon-refresh" @click="onResetBtnClick"
+            >重置</el-button
+          >
           <el-button
             type="primary"
             icon="el-icon-search"
@@ -33,7 +35,7 @@ export default defineComponent({
   components: {
     JnForm
   },
-  emits: ['queryBtnClick'],
+  emits: ['queryBtnClick', 'resetBtnClick'],
   setup(props, { emit }) {
     // formData 中的属性应该动态决定
     const formItems = props.searchFormConfig?.formItems ?? []
@@ -44,17 +46,18 @@ export default defineComponent({
     const formData = ref(formOriginData)
 
     // 用户点击重置
-    const onResetBtn = () => {
+    const onResetBtnClick = () => {
       for (const key in formOriginData) {
         formData.value[`${key}`] = formOriginData[key]
       }
+      emit('resetBtnClick')
     }
 
     // 用户点击查询
     const handleQueryClick = () => {
       emit('queryBtnClick', formData.value)
     }
-    return { formData, onResetBtn, handleQueryClick }
+    return { formData, onResetBtnClick, handleQueryClick }
   }
 })
 </script>
