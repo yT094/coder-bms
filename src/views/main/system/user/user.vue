@@ -84,7 +84,7 @@ export default defineComponent({
     const [defaultInfo, pageModalRef, onAddBtnClick, onEditBtnClick] =
       usePageModal(addCallBack, editCallBack)
 
-    const [pageContentRef, handleQueryBtnClick, handleResetBtnClick] =
+    const [pageContentRef, handleResetBtnClick, handleQueryBtnClick] =
       usePageSearch()
 
     return {
