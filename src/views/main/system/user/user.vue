@@ -6,23 +6,25 @@
       @queryBtnClick="handleQueryBtnClick"
     />
     <page-content
+      pageName="users"
       ref="pageContentRef"
       :contentTableConfig="contentTableConfig"
-      pageName="users"
       @addBtnClick="handleAddBtnClick"
       @editBtnClick="handleEditBtnClick"
     />
     <page-modal
-      :defaultInfo="defaultInfo"
-      :dialogFormConfig="dialogFormConfigRef"
       pageName="users"
       ref="pageModalRef"
+      :dialogFormConfig="dialogFormConfigRef"
+      :defaultInfo="defaultInfo"
     />
   </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
+
+import { useStore } from '@/store'
 
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
@@ -34,7 +36,6 @@ import { dialogFormConfig } from './config/page-modal'
 
 import { usePageModal } from '@/hooks/use-page-modal'
 import { usePageSearch } from '@/hooks/use-page-search'
-import { useStore } from '@/store'
 
 export default defineComponent({
   components: {
@@ -88,17 +89,17 @@ export default defineComponent({
       usePageSearch()
 
     return {
+      pageModalRef,
+      pageContentRef,
+      dialogFormConfigRef,
       searchFormConfig,
       contentTableConfig,
       dialogFormConfig,
-      defaultInfo,
-      pageModalRef,
       handleAddBtnClick,
       handleEditBtnClick,
-      pageContentRef,
       handleQueryBtnClick,
       handleResetBtnClick,
-      dialogFormConfigRef
+      defaultInfo
     }
   }
 })
