@@ -9,8 +9,8 @@
       ref="pageContentRef"
       :contentTableConfig="contentTableConfig"
       pageName="role"
-      @addBtnClick="onAddBtnClick"
-      @editBtnClick="onEditBtnClick"
+      @addBtnClick="handleAddBtnClick"
+      @editBtnClick="handleEditBtnClick"
     />
   </div>
 </template>

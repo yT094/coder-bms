@@ -7,7 +7,7 @@ export function usePageModal(addCb?: CallbackFn, editCb?: CallbackFn) {
   const pageModalRef = ref<InstanceType<typeof PageModal>>()
   // 回填表单数据
   const defaultInfo = ref({})
-  const onAddBtnClick = () => {
+  const handleAddBtnClick = () => {
     // 与编辑按钮共用，初始化一下是有必要的
     defaultInfo.value = {}
     if (pageModalRef.value) {
@@ -17,12 +17,12 @@ export function usePageModal(addCb?: CallbackFn, editCb?: CallbackFn) {
     addCb && addCb()
   }
 
-  const onEditBtnClick = (item: any) => {
+  const handleEditBtnClick = (item: any) => {
     defaultInfo.value = { ...item }
     if (pageModalRef.value) {
       pageModalRef.value.dialogVisible = true
     }
     editCb && editCb()
   }
-  return [defaultInfo, pageModalRef, onAddBtnClick, onEditBtnClick]
+  return [defaultInfo, pageModalRef, handleAddBtnClick, handleEditBtnClick]
 }

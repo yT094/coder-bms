@@ -9,8 +9,8 @@
       ref="pageContentRef"
       :contentTableConfig="contentTableConfig"
       pageName="users"
-      @addBtnClick="onAddBtnClick"
-      @editBtnClick="onEditBtnClick"
+      @addBtnClick="handleAddBtnClick"
+      @editBtnClick="handleEditBtnClick"
     />
     <page-modal
       :defaultInfo="defaultInfo"
@@ -81,7 +81,7 @@ export default defineComponent({
     })
 
     // 调用hook获取公共变量和函数
-    const [defaultInfo, pageModalRef, onAddBtnClick, onEditBtnClick] =
+    const [defaultInfo, pageModalRef, handleAddBtnClick, handleEditBtnClick] =
       usePageModal(addCallBack, editCallBack)
 
     const [pageContentRef, handleResetBtnClick, handleQueryBtnClick] =
@@ -93,8 +93,8 @@ export default defineComponent({
       dialogFormConfig,
       defaultInfo,
       pageModalRef,
-      onAddBtnClick,
-      onEditBtnClick,
+      handleAddBtnClick,
+      handleEditBtnClick,
       pageContentRef,
       handleQueryBtnClick,
       handleResetBtnClick,
