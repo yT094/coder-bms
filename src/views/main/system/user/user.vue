@@ -1,7 +1,11 @@
 <template>
   <div class="user">
-    <page-search :searchFormConfig="searchFormConfig" />
+    <page-search
+      :searchFormConfig="searchFormConfig"
+      @queryBtnClick="handleQueryBtnClick"
+    />
     <page-content
+      ref="pageContentRef"
       :contentTableConfig="contentTableConfig"
       pageName="users"
       @addBtnClick="onAddBtnClick"
@@ -28,6 +32,7 @@ import { contentTableConfig } from './config/page-content'
 import { dialogFormConfig } from './config/page-modal'
 
 import { usePageModal } from '@/hooks/use-page-modal'
+import { usePageSearch } from '@/hooks/use-page-search'
 import { useStore } from '@/store'
 
 export default defineComponent({
@@ -78,6 +83,8 @@ export default defineComponent({
     const [defaultInfo, pageModalRef, onAddBtnClick, onEditBtnClick] =
       usePageModal(addCallBack, editCallBack)
 
+    const [pageContentRef, handleQueryBtnClick] = usePageSearch()
+
     return {
       searchFormConfig,
       contentTableConfig,
@@ -86,6 +93,8 @@ export default defineComponent({
       pageModalRef,
       onAddBtnClick,
       onEditBtnClick,
+      pageContentRef,
+      handleQueryBtnClick,
       dialogFormConfigRef
     }
   }

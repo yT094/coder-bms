@@ -41,7 +41,7 @@ export const searchFormConfig: IForm = {
       ]
     },
     {
-      field: 'createTime',
+      field: 'createAt',
       type: 'datepicker',
       label: '选择时间',
       timeOptions: {

@@ -69,13 +69,19 @@ export default defineComponent({
   emits: ['editBtnClick', 'deleteBtnClick', 'addBtnClick'],
   setup(props, { emit }) {
     const store = useStore()
-    store.dispatch('system/getPageListAction', {
-      pageName: props.pageName,
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    })
+
+    // 请求网络数据
+    const getPageData = (queryInfo: any = {}) => {
+      store.dispatch('system/getPageListAction', {
+        pageName: props.pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+          ...queryInfo
+        }
+      })
+    }
+    getPageData()
 
     const dataList = computed(() =>
       store.getters[`system/pageListData`](props.pageName)
@@ -90,7 +96,7 @@ export default defineComponent({
       emit('editBtnClick', item)
     }
 
-    return { dataList, handleAddBtnClick, handleEditBtnClick }
+    return { dataList, getPageData, handleAddBtnClick, handleEditBtnClick }
   }
 })
 </script>
