@@ -10,4 +10,5 @@ export interface JNRequestInterceptors<T = AxiosResponse> {
 
 export interface JNRequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
   interceptors?: JNRequestInterceptors<T>
+  showLoading?: boolean
 }
