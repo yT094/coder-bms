@@ -9,6 +9,7 @@
     <span>
       <jn-form v-bind="dialogFormConfig" v-model="formData"></jn-form>
     </span>
+    <slot></slot>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>

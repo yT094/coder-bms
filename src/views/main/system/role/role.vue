@@ -17,12 +17,24 @@
       ref="pageModalRef"
       :dialogFormConfig="dialogFormConfig"
       :defaultInfo="defaultInfo"
-    />
+    >
+      <div class="e-menu-tree">
+        <el-tree
+          ref="menuTreeRef"
+          :data="menus"
+          show-checkbox
+          node-key="id"
+          :props="{ children: 'children', label: 'name' }"
+          @check="handleCheckChange"
+        />
+      </div>
+    </page-modal>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
+import { useStore } from '@/store'
 
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
@@ -43,6 +55,10 @@ export default defineComponent({
   },
   name: 'role',
   setup() {
+    const store = useStore()
+    const menus = computed(() => store.state.entireMenu)
+    console.log('111111111', menus)
+
     const [pageContentRef, handleResetBtnClick, handleQueryBtnClick] =
       usePageSearch()
     const [defaultInfo, pageModalRef, handleAddBtnClick, handleEditBtnClick] =
@@ -58,10 +74,17 @@ export default defineComponent({
       defaultInfo,
       pageModalRef,
       handleAddBtnClick,
-      handleEditBtnClick
+      handleEditBtnClick,
+      menus
     }
   }
 })
 </script>
 
-<style scoped></style>
+<style lang="less" scoped>
+.role {
+  .e-menu-tree {
+    margin-left: 35px;
+  }
+}
+</style>
