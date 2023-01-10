@@ -17,6 +17,7 @@
       ref="pageModalRef"
       :dialogFormConfig="dialogFormConfig"
       :defaultInfo="defaultInfo"
+      :otherInfo="otherInfo"
     >
       <div class="e-menu-tree">
         <el-tree
@@ -33,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { useStore } from '@/store'
 
 import PageSearch from '@/components/page-search'
@@ -57,7 +58,14 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const menus = computed(() => store.state.entireMenu)
-    console.log('111111111', menus)
+
+    const otherInfo = ref({})
+    const handleCheckChange = (data1: any, data2: any) => {
+      const checkedKeys = data2.checkedKeys
+      const halfCheckedKeys = data2.halfCheckedKeys
+      const menuList = [...checkedKeys, ...halfCheckedKeys]
+      otherInfo.value = { menuList }
+    }
 
     const [pageContentRef, handleResetBtnClick, handleQueryBtnClick] =
       usePageSearch()
@@ -75,7 +83,9 @@ export default defineComponent({
       pageModalRef,
       handleAddBtnClick,
       handleEditBtnClick,
-      menus
+      menus,
+      handleCheckChange,
+      otherInfo
     }
   }
 })
