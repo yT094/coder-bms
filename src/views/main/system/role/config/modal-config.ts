@@ -15,6 +15,5 @@ export const dialogFormConfig: IForm = {
       placeholder: '请输入角色介绍'
     }
   ],
-  colLayout: { span: 24 },
-  itemStyle: {}
+  colLayout: { span: 24 }
 }
