@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent, nextTick, ref } from 'vue'
 import { useStore } from '@/store'
 import { ElTree } from 'element-plus'
 import { menuMapLeafKeys } from '@/utils/map-menus'
@@ -75,7 +75,9 @@ export default defineComponent({
     const elTreeRef = ref<InstanceType<typeof ElTree>>()
     const editCallBack = (item: any) => {
       const leafKeys = menuMapLeafKeys(item.menuList)
-      elTreeRef.value?.setCheckedKeys(leafKeys, false)
+      nextTick(() => {
+        elTreeRef.value?.setCheckedKeys(leafKeys, false)
+      })
     }
 
     // 引入hook中的数据和方法
