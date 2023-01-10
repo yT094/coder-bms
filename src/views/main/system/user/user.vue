@@ -15,6 +15,7 @@
     <page-modal
       pageName="users"
       ref="pageModalRef"
+      :dialogTitle="dialogTitle"
       :dialogFormConfig="dialogFormConfigRef"
       :defaultInfo="defaultInfo"
     />
@@ -22,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 import { useStore } from '@/store'
 
@@ -45,6 +46,8 @@ export default defineComponent({
   },
   name: 'user',
   setup() {
+    // 弹框的title
+    let dialogTitle = ref('新建用户')
     // pageModal相关的hook逻辑
     // 1.处理密码的逻辑，不宜写在公共usePageModal，这属于user.vue特有的
     const addCallBack = () => {
@@ -53,6 +56,8 @@ export default defineComponent({
       )
       // 这里肯定有值，使用类型断言
       passwordItem!.isHidden = false
+      // 更改弹框title
+      dialogTitle.value = '新建用户'
     }
     const editCallBack = () => {
       const passwordItem = dialogFormConfig.formItems.find(
@@ -60,6 +65,8 @@ export default defineComponent({
       )
       // 这里肯定有值，使用类型断言
       passwordItem!.isHidden = true
+      // 更改弹框title
+      dialogTitle.value = '编辑用户'
     }
 
     // 2.动态加载部门和角色列表
@@ -99,7 +106,8 @@ export default defineComponent({
       handleEditBtnClick,
       handleQueryBtnClick,
       handleResetBtnClick,
-      defaultInfo
+      defaultInfo,
+      dialogTitle
     }
   }
 })
