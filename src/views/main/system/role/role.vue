@@ -21,7 +21,7 @@
     >
       <div class="e-menu-tree">
         <el-tree
-          ref="menuTreeRef"
+          ref="elTreeRef"
           :data="menus"
           show-checkbox
           node-key="id"
@@ -36,6 +36,8 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue'
 import { useStore } from '@/store'
+import { ElTree } from 'element-plus'
+import { menuMapLeafKeys } from '@/utils/map-menus'
 
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
@@ -56,9 +58,11 @@ export default defineComponent({
   },
   name: 'role',
   setup() {
+    // 展示菜单权限数据
     const store = useStore()
     const menus = computed(() => store.state.entireMenu)
 
+    // 将选择的菜单权限送给服务器
     const otherInfo = ref({})
     const handleCheckChange = (data1: any, data2: any) => {
       const checkedKeys = data2.checkedKeys
@@ -67,10 +71,18 @@ export default defineComponent({
       otherInfo.value = { menuList }
     }
 
+    // 点击编辑按钮时，回显菜单权限数据
+    const elTreeRef = ref<InstanceType<typeof ElTree>>()
+    const editCallBack = (item: any) => {
+      const leafKeys = menuMapLeafKeys(item.menuList)
+      elTreeRef.value?.setCheckedKeys(leafKeys, false)
+    }
+
+    // 引入hook中的数据和方法
     const [pageContentRef, handleResetBtnClick, handleQueryBtnClick] =
       usePageSearch()
     const [defaultInfo, pageModalRef, handleAddBtnClick, handleEditBtnClick] =
-      usePageModal()
+      usePageModal(undefined, editCallBack)
 
     return {
       searchFormConfig,
@@ -85,7 +97,8 @@ export default defineComponent({
       handleEditBtnClick,
       menus,
       handleCheckChange,
-      otherInfo
+      otherInfo,
+      elTreeRef
     }
   }
 })
