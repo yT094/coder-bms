@@ -22,3 +22,9 @@ export function editPageData(url: string, editData: any) {
     data: editData
   })
 }
+
+export function deletePageData(url: string) {
+  return jnRequest.delete<IDataType>({
+    url: url
+  })
+}

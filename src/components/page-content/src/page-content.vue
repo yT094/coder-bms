@@ -38,7 +38,7 @@
             icon="el-icon-delete"
             size="mini"
             type="text"
-            @click="handleDeleteBtnClick"
+            @click="handleDeleteBtnClick(scope.row)"
             >删除</el-button
           >
         </div>
@@ -96,7 +96,20 @@ export default defineComponent({
       emit('editBtnClick', item)
     }
 
-    return { dataList, getPageData, handleAddBtnClick, handleEditBtnClick }
+    const handleDeleteBtnClick = (item: any) => {
+      store.dispatch('system/deletePageDataAction', {
+        pageName: props.pageName,
+        id: item.id
+      })
+    }
+
+    return {
+      dataList,
+      getPageData,
+      handleAddBtnClick,
+      handleEditBtnClick,
+      handleDeleteBtnClick
+    }
   }
 })
 </script>

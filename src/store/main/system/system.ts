@@ -6,7 +6,8 @@ import { ISystemState } from './types'
 import {
   getPageListData,
   createPageData,
-  editPageData
+  editPageData,
+  deletePageData
 } from '@/service/main/system/system'
 
 const systemModule: Module<ISystemState, IRootState> = {
@@ -127,6 +128,34 @@ const systemModule: Module<ISystemState, IRootState> = {
         ElMessage({
           showClose: true,
           message: '编辑成功！',
+          type: 'success'
+        })
+        // 2.请求最新的数据
+        dispatch('getPageListAction', {
+          pageName,
+          queryInfo: {
+            offset: 0,
+            size: 10
+          }
+        })
+      }
+    },
+
+    async deletePageDataAction({ dispatch }, payload: any) {
+      const { pageName, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+
+      const pageResult = await deletePageData(pageUrl)
+      if (pageResult.code !== 0) {
+        ElMessage({
+          showClose: true,
+          message: '删除失败！',
+          type: 'error'
+        })
+      } else {
+        ElMessage({
+          showClose: true,
+          message: '删除成功！',
           type: 'success'
         })
         // 2.请求最新的数据
