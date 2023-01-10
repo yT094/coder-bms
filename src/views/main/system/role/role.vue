@@ -14,6 +14,7 @@
     />
     <page-modal
       pageName="role"
+      :dialogTitle="dialogTitle"
       ref="pageModalRef"
       :dialogFormConfig="dialogFormConfig"
       :defaultInfo="defaultInfo"
@@ -58,6 +59,8 @@ export default defineComponent({
   },
   name: 'role',
   setup() {
+    // 弹框的title
+    let dialogTitle = ref('新建角色')
     // 展示菜单权限数据
     const store = useStore()
     const menus = computed(() => store.state.entireMenu)
@@ -74,17 +77,22 @@ export default defineComponent({
     // 点击编辑按钮时，回显菜单权限数据
     const elTreeRef = ref<InstanceType<typeof ElTree>>()
     const editCallBack = (item: any) => {
+      dialogTitle.value = '编辑角色'
       const leafKeys = menuMapLeafKeys(item.menuList)
       nextTick(() => {
         elTreeRef.value?.setCheckedKeys(leafKeys, false)
       })
     }
 
+    const addCallBack = () => {
+      dialogTitle.value = '新建角色'
+    }
+
     // 引入hook中的数据和方法
     const [pageContentRef, handleResetBtnClick, handleQueryBtnClick] =
       usePageSearch()
     const [defaultInfo, pageModalRef, handleAddBtnClick, handleEditBtnClick] =
-      usePageModal(undefined, editCallBack)
+      usePageModal(addCallBack, editCallBack)
 
     return {
       searchFormConfig,
@@ -100,7 +108,8 @@ export default defineComponent({
       menus,
       handleCheckChange,
       otherInfo,
-      elTreeRef
+      elTreeRef,
+      dialogTitle
     }
   }
 })
@@ -109,7 +118,7 @@ export default defineComponent({
 <style lang="less" scoped>
 .role {
   .e-menu-tree {
-    margin-left: 35px;
+    margin-left: 50px;
   }
 }
 </style>

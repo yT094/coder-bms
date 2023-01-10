@@ -2,7 +2,7 @@
   <div class="page-modal">
     <el-dialog
       v-model="dialogVisible"
-      title="新建用户"
+      :title="dialogTitle"
       width="30%"
       center
       destroy-on-close
@@ -41,6 +41,10 @@ export default defineComponent({
       default: () => ({})
     },
     pageName: {
+      type: String,
+      required: true
+    },
+    dialogTitle: {
       type: String,
       required: true
     },

@@ -2,9 +2,9 @@
   <div class="page-content">
     <jn-table :listData="dataList" v-bind="contentTableConfig">
       <template #headerHandler>
-        <el-button type="primary" size="medium" @click="handleAddBtnClick"
-          >新建用户</el-button
-        >
+        <el-button type="primary" size="medium" @click="handleAddBtnClick">{{
+          contentTableConfig.btnName
+        }}</el-button>
       </template>
 
       <template #status="scope">
