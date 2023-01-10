@@ -1,22 +1,24 @@
 <template>
-  <el-dialog
-    v-model="dialogVisible"
-    title="新建用户"
-    width="30%"
-    center
-    destroy-on-close
-  >
-    <span>
-      <jn-form v-bind="dialogFormConfig" v-model="formData"></jn-form>
-    </span>
-    <slot></slot>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="onConfirmClick"> 确认 </el-button>
+  <div class="page-modal">
+    <el-dialog
+      v-model="dialogVisible"
+      title="新建用户"
+      width="30%"
+      center
+      destroy-on-close
+    >
+      <span>
+        <jn-form v-bind="dialogFormConfig" v-model="formData"></jn-form>
       </span>
-    </template>
-  </el-dialog>
+      <slot></slot>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="onConfirmClick"> 确认 </el-button>
+        </span>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <script lang="ts">

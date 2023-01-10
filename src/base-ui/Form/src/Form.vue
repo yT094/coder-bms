@@ -108,3 +108,15 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="less" scoped>
+.el-form-item {
+  margin-bottom: 0;
+}
+
+.jn-form {
+  .m-footer {
+    margin-top: 10px;
+  }
+}
+</style>
