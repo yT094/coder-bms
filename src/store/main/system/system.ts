@@ -48,6 +48,25 @@ const systemModule: Module<ISystemState, IRootState> = {
             break
         }
       }
+    },
+    pageListCount(state) {
+      // 无法正常执行
+      // return (pageName: string) => {
+      //   return (state as any)[`${pageName}Count`]
+      // }
+
+      return (pageName: string) => {
+        switch (pageName) {
+          case 'users':
+            return state.userCount
+            break
+          case 'role':
+            return state.roleCount
+            break
+          default:
+            break
+        }
+      }
     }
   },
   actions: {

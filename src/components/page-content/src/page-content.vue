@@ -1,6 +1,10 @@
 <template>
   <div class="page-content">
-    <jn-table :listData="dataList" v-bind="contentTableConfig">
+    <jn-table
+      :listData="dataList"
+      :listCount="dataCount"
+      v-bind="contentTableConfig"
+    >
       <template #headerHandler>
         <el-button type="primary" size="medium" @click="handleAddBtnClick">{{
           contentTableConfig.btnName
@@ -86,6 +90,9 @@ export default defineComponent({
     const dataList = computed(() =>
       store.getters[`system/pageListData`](props.pageName)
     )
+    const dataCount = computed(() =>
+      store.getters[`system/pageListCount`](props.pageName)
+    )
 
     // 处理新建和编辑按钮
     const handleAddBtnClick = () => {
@@ -105,6 +112,7 @@ export default defineComponent({
 
     return {
       dataList,
+      dataCount,
       getPageData,
       handleAddBtnClick,
       handleEditBtnClick,
