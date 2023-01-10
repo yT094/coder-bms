@@ -4,6 +4,7 @@
       :listData="dataList"
       :listCount="dataCount"
       v-bind="contentTableConfig"
+      v-model:page="pageInfo"
     >
       <template #headerHandler>
         <el-button type="primary" size="medium" @click="handleAddBtnClick">{{
@@ -52,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, watch, ref } from 'vue'
 import JnTable from '@/base-ui/table'
 import { useStore } from '@/store'
 
@@ -72,15 +73,19 @@ export default defineComponent({
   },
   emits: ['editBtnClick', 'deleteBtnClick', 'addBtnClick'],
   setup(props, { emit }) {
-    const store = useStore()
+    // 双向绑定pageInfo
+    const pageInfo = ref({ currentPage: 1, pageSize: 10 })
+    // 用户切换分页组件时，会被监听到
+    watch(pageInfo, () => getPageData())
 
+    const store = useStore()
     // 请求网络数据
     const getPageData = (queryInfo: any = {}) => {
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
-          offset: 0,
-          size: 10,
+          offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize,
+          size: pageInfo.value.pageSize,
           ...queryInfo
         }
       })
@@ -116,7 +121,8 @@ export default defineComponent({
       getPageData,
       handleAddBtnClick,
       handleEditBtnClick,
-      handleDeleteBtnClick
+      handleDeleteBtnClick,
+      pageInfo
     }
   }
 })
