@@ -6,7 +6,15 @@
       pageName="goods"
       @addBtnClick="handleAddBtnClick"
       @editBtnClick="handleEditBtnClick"
-    />
+    >
+      <template #image="scope">
+        <el-image
+          style="width: 60px; height: 80px"
+          :src="scope.row.imgUrl"
+          :preview-src-list="[scope.row.imgUrl]"
+        ></el-image>
+      </template>
+    </page-content>
   </div>
 </template>
 

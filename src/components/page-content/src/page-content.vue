@@ -6,12 +6,14 @@
       v-bind="contentTableConfig"
       v-model:page="pageInfo"
     >
+      <!-- 1.header中的插槽 -->
       <template #headerHandler>
         <el-button type="primary" size="medium" @click="handleAddBtnClick">{{
           contentTableConfig.btnName
         }}</el-button>
       </template>
 
+      <!-- 2.列中公共的插槽 -->
       <template #status="scope">
         <el-button
           plain
@@ -47,6 +49,17 @@
             >删除</el-button
           >
         </div>
+      </template>
+
+      <!-- 3.动态插槽：非公共部分 -->
+      <template
+        v-for="item in otherPropSlots"
+        :key="item.prop"
+        #[item.slotName]="scope"
+      >
+        <template v-if="item.slotName">
+          <slot :name="item.slotName" :row="scope.row"></slot>
+        </template>
       </template>
     </jn-table>
   </div>
@@ -115,6 +128,17 @@ export default defineComponent({
       })
     }
 
+    // 获取其他的动态插槽名称
+    const otherPropSlots = props.contentTableConfig.propList.filter(
+      (item: any) => {
+        if (item.slotName === 'status') return false
+        if (item.slotName === 'createAt') return false
+        if (item.slotName === 'updateAt') return false
+        if (item.slotName === 'handler') return false
+        return true
+      }
+    )
+
     return {
       dataList,
       dataCount,
@@ -122,7 +146,8 @@ export default defineComponent({
       handleAddBtnClick,
       handleEditBtnClick,
       handleDeleteBtnClick,
-      pageInfo
+      pageInfo,
+      otherPropSlots
     }
   }
 })
