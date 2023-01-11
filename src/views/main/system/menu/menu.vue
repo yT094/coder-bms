@@ -4,7 +4,11 @@
       ref="pageContentRef"
       :contentTableConfig="contentTableConfig"
       pageName="menu"
-    />
+    >
+      <template #icon="scope">
+        <el-button type="text" :icon="scope.row.icon"></el-button>
+      </template>
+    </page-content>
   </div>
 </template>
 
