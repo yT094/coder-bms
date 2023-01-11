@@ -14,6 +14,7 @@
           :preview-src-list="[scope.row.imgUrl]"
         ></el-image>
       </template>
+      <template #oldPrice="scope"> {{ '￥' + scope.row.oldPrice }} </template>
     </page-content>
   </div>
 </template>
