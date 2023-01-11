@@ -8,9 +8,13 @@
     >
       <!-- 1.header中的插槽 -->
       <template #headerHandler>
-        <el-button type="primary" size="medium" @click="handleAddBtnClick">{{
-          contentTableConfig.btnName
-        }}</el-button>
+        <el-button
+          type="primary"
+          size="medium"
+          @click="handleAddBtnClick"
+          v-if="isCreate"
+          >{{ contentTableConfig.btnName }}</el-button
+        >
       </template>
 
       <!-- 2.列中公共的插槽 -->
@@ -36,6 +40,7 @@
         <div class="t-btn">
           <el-button
             icon="el-icon-edit"
+            v-if="isUpdate"
             size="mini"
             type="text"
             @click="handleEditBtnClick(scope.row)"
@@ -43,6 +48,7 @@
           >
           <el-button
             icon="el-icon-delete"
+            v-if="isDelete"
             size="mini"
             type="text"
             @click="handleDeleteBtnClick(scope.row)"
@@ -67,8 +73,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, watch, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import JnTable from '@/base-ui/table'
 import { useStore } from '@/store'
+import { usePermission } from '@/hooks/use-permission'
 
 export default defineComponent({
   components: {
@@ -86,6 +94,12 @@ export default defineComponent({
   },
   emits: ['editBtnClick', 'deleteBtnClick', 'addBtnClick'],
   setup(props, { emit }) {
+    // 获取按钮的操作权限
+    const isCreate = usePermission(props.pageName, 'create')
+    const isUpdate = usePermission(props.pageName, 'update')
+    const isDelete = usePermission(props.pageName, 'delete')
+    const isQuery = usePermission(props.pageName, 'query')
+
     // 双向绑定pageInfo
     const pageInfo = ref({ currentPage: 1, pageSize: 10 })
     // 用户切换分页组件时，会被监听到
@@ -94,6 +108,15 @@ export default defineComponent({
     const store = useStore()
     // 请求网络数据
     const getPageData = (queryInfo: any = {}) => {
+      if (!isQuery) {
+        ElMessage({
+          showClose: true,
+          message: '抱歉，您没有该操作权限！',
+          type: 'error'
+        })
+        return
+      }
+
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
@@ -147,7 +170,12 @@ export default defineComponent({
       handleEditBtnClick,
       handleDeleteBtnClick,
       pageInfo,
-      otherPropSlots
+      otherPropSlots,
+      usePermission,
+      isCreate,
+      isUpdate,
+      isDelete,
+      isQuery
     }
   }
 })
