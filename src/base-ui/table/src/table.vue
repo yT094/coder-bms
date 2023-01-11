@@ -37,7 +37,7 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="e-footer">
+    <div class="e-footer" v-if="showFooter">
       <slot name="footer">
         <el-pagination
           @size-change="handleSizeChange"
@@ -69,7 +69,7 @@ export default defineComponent({
     },
     listCount: {
       type: Number,
-      required: true
+      required: false
     },
     propList: {
       type: Array,
@@ -86,6 +86,10 @@ export default defineComponent({
     showIndexColumn: {
       type: Boolean,
       default: false
+    },
+    showFooter: {
+      type: Boolean,
+      default: true
     }
   },
   emits: ['selectionChange', 'update:page'],
