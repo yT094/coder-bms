@@ -23,7 +23,9 @@
         </jn-card>
       </el-col>
       <el-col :span="12">
-        <jn-card title="分类商品的收藏">5</jn-card>
+        <jn-card title="分类商品的收藏">
+          <bar-echart v-bind="categoryGoodsFavor"></bar-echart>
+        </jn-card>
       </el-col>
     </el-row>
   </div>
@@ -33,7 +35,12 @@
 import { computed, defineComponent } from 'vue'
 import { useStore } from '@/store'
 import JnCard from '@/base-ui/card'
-import { PieEchart, RoseEchart, lineEchart } from '@/components/page-echarts'
+import {
+  PieEchart,
+  RoseEchart,
+  lineEchart,
+  barEchart
+} from '@/components/page-echarts'
 
 export default defineComponent({
   name: 'dashboard',
@@ -41,7 +48,8 @@ export default defineComponent({
     JnCard,
     PieEchart,
     RoseEchart,
-    lineEchart
+    lineEchart,
+    barEchart
   },
   setup() {
     // 请求数据
@@ -66,7 +74,18 @@ export default defineComponent({
       return { xLabels, values }
     })
 
-    return { categoryGoodsCount, categoryGoodsSale }
+    const categoryGoodsFavor = computed(() => {
+      const xLabels: string[] = []
+      const values: any[] = []
+      const categoryGoodsFavor = store.state.dashboard.categoryGoodsFavor
+      for (const item of categoryGoodsFavor) {
+        xLabels.push(item.name)
+        values.push(item.goodsFavor)
+      }
+      return { xLabels, values }
+    })
+
+    return { categoryGoodsCount, categoryGoodsSale, categoryGoodsFavor }
   }
 })
 </script>
