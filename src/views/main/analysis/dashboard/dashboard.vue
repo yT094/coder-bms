@@ -7,7 +7,9 @@
         </jn-card>
       </el-col>
       <el-col :span="10">
-        <jn-card title="不同城市商品销量">2</jn-card>
+        <jn-card title="不同城市商品销量">
+          <map-echart :mapData="addressGoodsSale"></map-echart>
+        </jn-card>
       </el-col>
       <el-col :span="7">
         <jn-card title="分类商品数量(玫瑰图)">
@@ -39,7 +41,8 @@ import {
   PieEchart,
   RoseEchart,
   lineEchart,
-  barEchart
+  barEchart,
+  mapEchart
 } from '@/components/page-echarts'
 
 export default defineComponent({
@@ -49,7 +52,8 @@ export default defineComponent({
     PieEchart,
     RoseEchart,
     lineEchart,
-    barEchart
+    barEchart,
+    mapEchart
   },
   setup() {
     // 请求数据
@@ -85,7 +89,18 @@ export default defineComponent({
       return { xLabels, values }
     })
 
-    return { categoryGoodsCount, categoryGoodsSale, categoryGoodsFavor }
+    const addressGoodsSale = computed(() => {
+      return store.state.dashboard.addressGoodsSale.map((item: any) => {
+        return { name: item.address, value: item.count }
+      })
+    })
+
+    return {
+      categoryGoodsCount,
+      categoryGoodsSale,
+      categoryGoodsFavor,
+      addressGoodsSale
+    }
   }
 })
 </script>
